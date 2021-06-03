@@ -26,16 +26,16 @@ describe Oystercard do
     end
   end
 
-  context '#deduct' do
-    it { is_expected.to respond_to(:deduct).with(1).argument }
-    it 'deducts amount from the total balance' do
-      subject.top_up(30)
-      expect{ subject.deduct(5)}.to change{ subject.balance }.by (-5)
-    end 
-    it 'raises error if balance is too low' do
-      expect { subject.deduct(1) }.to raise_error "Insufficient funds"
-    end
-  end
+  # context '#deduct' do
+  #   it { is_expected.to respond_to(:deduct).with(1).argument }
+  #   it 'deducts amount from the total balance' do
+  #     subject.top_up(30)
+  #     expect{ subject.deduct(5)}.to change{ subject.balance }.by (-5)
+  #   end 
+  #   it 'raises error if balance is too low' do
+  #     expect { subject.deduct(1) }.to raise_error "Insufficient funds"
+  #   end
+  # end
 
   context '#in_journey?' do
     it 'defaults to false' do
@@ -61,8 +61,11 @@ describe Oystercard do
       subject.touch_in
       subject.touch_out
       expect(subject).not_to be_in_journey
+      expect{ subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM_CHARGE)
     end
   end
+
+  
 
   context 'checks minimum balance at touch in' do
     it 'raises n error when touching in without minimum balance' do
