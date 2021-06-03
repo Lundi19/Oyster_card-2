@@ -7,7 +7,7 @@ class Oystercard
   def initialize
     @balance = 0
     # @in_journey = false
-    #@entry_station
+    @entry_station = nil
     @list_of_journeys = []
   end
 
@@ -35,9 +35,6 @@ class Oystercard
     @entry_station = nil
 
   end
-
-  
-
 
   
   private

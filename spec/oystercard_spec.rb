@@ -91,12 +91,21 @@ describe Oystercard do
     expect(subject.list_of_journeys).to be_empty
   end
 
-  let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
+  #  let(:journey){ {entry_station: @entry_station, exit_station: @exit_station} }
 
-  it 'stores a journey' do
-    subject.touch_in(station)
-    subject.touch_out(station)
-    expect(subject.list_of_journeys).to include journey
+  # it 'stores a journey' do
+  #   subject.top_up(10)
+  #   subject.touch_in(station)
+  #   subject.touch_out(station)
+  #   expect(subject.list_of_journeys).to include journey
+  # end
+
+  it 'checks that entry and exit station are stored' do
+    journey = Oystercard.new
+    journey.top_up(10)
+    journey.touch_in(station)
+    journey.touch_out(station)
+    expect(journey.list_of_journeys).to eq ([{station => station}])
   end
 
 
